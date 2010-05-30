@@ -46,5 +46,29 @@ namespace FindAndPull.Properties {
                 this["lastFindLocation"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int searchDate {
+            get {
+                return ((int)(this["searchDate"]));
+            }
+            set {
+                this["searchDate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("f")]
+        public string searchType {
+            get {
+                return ((string)(this["searchType"]));
+            }
+            set {
+                this["searchType"] = value;
+            }
+        }
     }
 }

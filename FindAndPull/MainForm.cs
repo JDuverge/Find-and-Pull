@@ -18,6 +18,8 @@ namespace FindAndPull
         private bool firstTimeClose = true;
         private string saveLoc;
         private string findLoc;
+        private int searchDate;
+        private string searchType;
         private string[] locations;
 
         public mainForm()
@@ -26,6 +28,20 @@ namespace FindAndPull
             this.Icon = Properties.Resources.icon1;
             saveLoc = Properties.Settings.Default.saveLocation;
             findLoc = Properties.Settings.Default.lastFindLocation;
+            searchDate = Properties.Settings.Default.searchDate;
+            searchType = Properties.Settings.Default.searchType;
+            if (searchType.Equals("Files"))
+            {
+                searchType = "f";
+            }
+            else if (searchType.Equals("Directories"))
+            {
+                searchType = "d";
+            }
+            else
+            {
+                searchType = "f";
+            }
             locations = new string[1000];
         }
 
@@ -46,6 +62,8 @@ namespace FindAndPull
                 prefs.ShowDialog();
                 saveLoc = prefs.SaveLocation;
                 findLoc = prefs.LastFindLocation;
+                searchDate = prefs.SearchDate;
+                searchType = prefs.SearchType;
             }
         }
 
@@ -117,7 +135,32 @@ namespace FindAndPull
 
         private int findInstances()
         {
-            string currentLine, searchString = "";
+            string currentLine, searchString, sDate = "";
+            string sIntro = "adb shell find " + findLoc;
+            string sType = " -type " + searchType;
+            string sSearch = " -name \'*" + textBoxSearch.Text.Trim()
+                + "*\' -print";
+
+            searchString = sIntro;
+            if (this.searchDate == 0)
+            {
+                searchString += sType + sSearch;
+            }
+            else if(this.searchDate > 0)
+            {
+                sDate = " -mtime +" + searchDate;
+                searchString += sType + sDate + sSearch;
+            }
+            else if (this.searchDate < 0)
+            {
+                sDate = " -mtime -" + Math.Abs(searchDate);
+                searchString += sType + sDate + sSearch;
+            }
+            else
+            {
+                searchString += sType + sSearch;
+            }
+
             int i = 0;
             bool unexpectedBreak = false;
 
@@ -133,8 +176,6 @@ namespace FindAndPull
 
             this.toolStripStatusLabel1.Text = "Searching.....";
 
-            searchString = "adb shell find " + findLoc
-                + " -name \'*" + textBoxSearch.Text.Trim() + "*\' -print";
             console.StandardInput.WriteLine(searchString);
             console.StandardInput.WriteLine("exit");
 

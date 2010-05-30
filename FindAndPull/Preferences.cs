@@ -24,6 +24,8 @@ namespace FindAndPull
             this.AutoValidate = AutoValidate.EnableAllowFocusChange;
             this.comboBoxFind.Text = this.LastFindLocation;
             this.textBoxSave.Text = this.SaveLocation;
+            this.numericUpDown.Value = this.SearchDate;
+            this.comboBoxType.Text = this.SearchType.Equals("d") ? "Directories" : "Files";
         }
 
         public String SaveLocation
@@ -42,6 +44,36 @@ namespace FindAndPull
             set 
             { 
                 Properties.Settings.Default.lastFindLocation = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        public int SearchDate
+        {
+            get { return Properties.Settings.Default.searchDate; }
+            set
+            {
+                Properties.Settings.Default.searchDate = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        public String SearchType
+        {
+            get 
+            {
+                return Properties.Settings.Default.searchType;
+            }
+            set
+            {
+                if (value.Trim().Equals("Files"))
+                {
+                    Properties.Settings.Default.searchType = "f";
+                }
+                else if (value.Trim().Equals("Directories"))
+                {
+                    Properties.Settings.Default.searchType = "d";
+                }
                 Properties.Settings.Default.Save();
             }
         }
@@ -123,8 +155,9 @@ namespace FindAndPull
             {
                 SaveLocation = this.textBoxSave.Text;
                 LastFindLocation = this.comboBoxFind.Text;
+                SearchDate = (int)this.numericUpDown.Value;
+                SearchType = this.comboBoxType.Text;
                 this.DialogResult = DialogResult.OK;
-                //MessageBox.Show(SaveLocation + " " + LastFindLocation);
             }
         }
 
@@ -133,24 +166,13 @@ namespace FindAndPull
             Properties.Settings.Default.Reset();
             this.textBoxSave.Text = SaveLocation;
             this.comboBoxFind.Text = LastFindLocation;
+            this.numericUpDown.Value = SearchDate;
+            this.comboBoxType.Text = this.SearchType.Equals("d") ? "Directories" : "Files";
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
-            //MessageBox.Show(SaveLocation + " " + LastFindLocation);
         }
-
-        /*private void buttonOK_MouseLeave(object sender, EventArgs e)
-        {
-            if (checkFindTextBox())
-            {
-                this.errorProvider.SetError(comboBoxFind, errorMsg);
-            }
-            else
-            {
-                this.errorProvider.SetError(comboBoxFind, errorMsg);
-            }
-        }*/
     }
 }

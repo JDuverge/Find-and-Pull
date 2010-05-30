@@ -43,7 +43,7 @@
             this.textBox1.Size = new System.Drawing.Size(415, 100);
             this.textBox1.TabIndex = 1;
             this.textBox1.TabStop = false;
-            this.textBox1.Text = "Find and Pull™\r\nVersion 1.0.1\r\n© 2010\r\nAuthor: JDuverge (xidominicanoix)";
+            this.textBox1.Text = "Find and Pull™\r\nVersion 1.0.2\r\n© 2010\r\nAuthor: JDuverge (xidominicanoix)";
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // linkWebsite

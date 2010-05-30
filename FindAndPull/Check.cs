@@ -15,6 +15,7 @@ namespace FindAndPull
     public partial class Check : Form
     {
         private ProcessStartInfo si;
+        bool deviceFound;
 
         public Check()
         {
@@ -22,6 +23,7 @@ namespace FindAndPull
             this.Icon = Properties.Resources.icon1;
             this.textBoxDevices.Clear();
             string currentLine = "";
+            DeviceFound = false;
 
             si = new ProcessStartInfo("cmd.exe");
             si.RedirectStandardInput = true;
@@ -44,10 +46,23 @@ namespace FindAndPull
             console.WaitForExit();
 
             this.textBoxDevices.Text = currentLine;
+
             if (this.textBoxDevices.Text.Trim().Equals(""))
             {
                 this.textBoxDevices.Text = "No Devices Found!";
+                this.DeviceFound = false;
             }
+            else if (this.textBoxDevices.Text.Trim().Contains("device"))
+            {
+                this.DeviceFound = true;
+            }
+
+            if (this.DeviceFound)
+            {
+                this.DialogResult = DialogResult.Yes;
+            }
+            //Have to fix so don't need check 
+            //screen if program finds device
         }
 
         private void buttonContinue_Click(object sender, EventArgs e)
@@ -63,6 +78,12 @@ namespace FindAndPull
         private void buttonEnd_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.No;
+        }
+
+        private bool DeviceFound
+        {
+            get { return deviceFound; }
+            set { deviceFound = value; }
         }
     }
 }

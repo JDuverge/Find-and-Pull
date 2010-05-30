@@ -44,8 +44,8 @@
             this.textBox1.Size = new System.Drawing.Size(270, 251);
             this.textBox1.TabIndex = 0;
             this.textBox1.TabStop = false;
-            this.textBox1.Text = "v1.0.1\r\n * Search Within Results\r\n * Status Bar\r\n * Bug Fixes\r\n\r\nv1.0\r\n * Initial" +
-                " Launch";
+            this.textBox1.Text = "v1.0.2\r\n * Specify Modified Date\r\n * Choose File/Dir\r\n\r\nv1.0.1\r\n * Search Within " +
+                "Results\r\n * Status Bar\r\n * Bug Fixes\r\n\r\nv1.0\r\n * Initial Launch";
             // 
             // Changelog
             // 
